@@ -44,14 +44,14 @@ class _HomescreenState extends State<Homescreen> {
           items: [
             BottomNavigationBarItem(
               label: "Blog", 
-              icon: Icon(Icons.home)),
+              icon: Icon(Icons.home,size: 24.dg,)),
             BottomNavigationBarItem(
               label: "Bookmarks",
-              icon: Icon(Icons.bookmarks_outlined),
+              icon: Icon(Icons.bookmarks_outlined,size: 24.dg),
             ),
             BottomNavigationBarItem(
               label: "Profile",
-              icon: Icon(Icons.person_outline_sharp),
+              icon: Icon(Icons.person_outline_sharp,size: 24.dg),
             ),
           ],
         ),
