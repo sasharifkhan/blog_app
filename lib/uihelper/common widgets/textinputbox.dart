@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Textinputbox extends StatelessWidget {
-  final String hinttext;
+  final String? hinttext;
   final TextEditingController getinputtext;
   final Icon? prefixicon;
+  final int? maxline;
   const Textinputbox({
     super.key,
-    required this.hinttext,
-    required this.getinputtext, this.prefixicon,
+    this.hinttext,
+    required this.getinputtext,
+    this.prefixicon,
+    this.maxline,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Appconstants.titlecolor,fontSize: 16.sp),
+      maxLines: maxline,
+      style: TextStyle(color: Appconstants.titlecolor, fontSize: 16.sp),
       decoration: InputDecoration(
         prefixIcon: prefixicon,
         enabledBorder: OutlineInputBorder(
@@ -32,7 +36,7 @@ class Textinputbox extends StatelessWidget {
           color: Appconstants.subtitlecolor,
           fontSize: 16.sp,
         ),
-        fillColor: Color(0xFF292E38),
+        fillColor: Appconstants.bottomnavbarcolor,
       ),
       controller: getinputtext,
     );

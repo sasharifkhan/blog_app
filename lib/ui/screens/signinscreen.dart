@@ -39,28 +39,32 @@ class _SigninscreenState extends State<Signinscreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 20.h,bottom: 20.h,left: 20.w,right: 20.w),
-          child: Column(
+          child: ListView(
             children: [
-              Text(
-                "Welcome Back!",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28.sp,
-                  color: Appconstants.titlecolor,
+              Center(
+                child: Text(
+                  "Welcome Back!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28.sp,
+                    color: Appconstants.titlecolor,
+                  ),
                 ),
               ),
               Spacinghelper.h20,
               Textinputbox(hinttext: "Email or username", getinputtext: email),
-              Spacinghelper.h20,
+              Spacinghelper.h24,
               Textinputbox(hinttext: "Password", getinputtext: password),
-              Spacinghelper.h20,
+              Spacinghelper.h24,
               Commonbutton(color: Appconstants.commonbuttoncolor, buttoname: "Sign In", callback: () {}),
-              Spacer(),
-              Text(
-                "Don't have an account?",
-                style: TextStyle(
-                  color: Appconstants.subtitlecolor,
-                  fontSize: 14.sp,
+              Spacinghelper.h60,
+              Center(
+                child: Text(
+                  "Don't have an account?",
+                  style: TextStyle(
+                    color: Appconstants.subtitlecolor,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
               TextButton(

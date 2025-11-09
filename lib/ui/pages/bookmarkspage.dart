@@ -60,6 +60,7 @@ class _BookmarkspageState extends State<Bookmarkspage> {
                           width: 100.w,
                           fit: BoxFit.fitHeight,
                         ),
+                        Spacinghelper.w10,
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

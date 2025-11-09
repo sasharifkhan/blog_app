@@ -23,31 +23,36 @@ class OnboardingScreen extends StatelessWidget {
               width: 390.w,
               fit: BoxFit.cover,
             ),
-            Text(
-              "Welcome to Your Personal Blog Space",
-              style: TextStyle(
-                fontSize: 28.sp,
-                color: Appconstants.titlecolor,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding:  EdgeInsets.all(20.dg),
+              child: Column(children: [
+                Text(
+                "Welcome to Your Personal Blog Space",
+                style: TextStyle(
+                  fontSize: 28.sp,
+                  color: Appconstants.titlecolor,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            Spacinghelper.h10,
-            Text(
-              "Discover articles, save your favorites, and engage with the community.",
-              style: TextStyle(color: Colors.white, fontSize: 16.sp),
-              textAlign: TextAlign.center,
-            ),
-            Spacinghelper.h60,
-            Commonbutton(
-              color: Appconstants.commonbuttoncolor,
-              buttoname: "Get Started",
-              callback: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Signinscreen()),
-                );
-              },
+              Spacinghelper.h10,
+              Text(
+                "Discover articles, save your favorites, and engage with the community.",
+                style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                textAlign: TextAlign.center,
+              ),
+              Spacinghelper.h60,
+              Commonbutton(
+                color: Appconstants.commonbuttoncolor,
+                buttoname: "Get Started",
+                callback: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Signinscreen()),
+                  );
+                },
+              )
+              ],),
             ),
           ],
         ),),

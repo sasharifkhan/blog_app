@@ -1,4 +1,6 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/ui/pages/editprofilepage.dart';
+import 'package:blogapp/ui/pages/updatepasswordpage.dart';
 import 'package:blogapp/uihelper/common%20widgets/commonbutton.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,7 @@ class Profilepage extends StatelessWidget {
           children: [
             Center(
               child: Card(
-                color: Appconstants.commonbuttoncolor,
+                color: Appconstants.backgroundcolor,
                 child: SizedBox(
                   height: 252.dg,
                   width: double.infinity,
@@ -90,7 +92,7 @@ class Profilepage extends StatelessWidget {
                   width: 40.w,
                   child: Center(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Editprofilepage(),));},
                       icon: Icon(Icons.mode_edit_outline_outlined, color: Appconstants.titlecolor),
                     ),
                   ),
@@ -117,7 +119,7 @@ class Profilepage extends StatelessWidget {
                   width: 40.w,
                   child: Center(
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Updatepasswordpage(),));},
                       icon: Icon(Icons.mode_edit_outline_outlined, color: Appconstants.titlecolor),
                     ),
                   ),
