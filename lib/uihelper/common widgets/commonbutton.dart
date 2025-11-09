@@ -5,8 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Commonbutton extends StatelessWidget {
   final String buttoname;
   final VoidCallback callback;
+  final Color color;
 
-  const Commonbutton({super.key, required this.buttoname, required this.callback});
+  const Commonbutton({super.key, required this.buttoname, required this.callback, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class Commonbutton extends StatelessWidget {
           shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(25.r),
           ),
-          backgroundColor: Appconstants.commonbuttoncolor,
+          backgroundColor: color,
         ),
         child: Text(
           buttoname,

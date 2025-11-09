@@ -21,6 +21,7 @@ class _SigninscreenState extends State<Signinscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 72.h,
         iconTheme: IconThemeData(color: Appconstants.titlecolor),
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,
@@ -53,7 +54,7 @@ class _SigninscreenState extends State<Signinscreen> {
               Spacinghelper.h20,
               Textinputbox(hinttext: "Password", getinputtext: password),
               Spacinghelper.h20,
-              Commonbutton(buttoname: "Sign In", callback: () {}),
+              Commonbutton(color: Appconstants.commonbuttoncolor, buttoname: "Sign In", callback: () {}),
               Spacer(),
               Text(
                 "Don't have an account?",

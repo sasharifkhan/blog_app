@@ -10,6 +10,7 @@ class BlogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 72.h,
         automaticallyImplyLeading: false,
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,

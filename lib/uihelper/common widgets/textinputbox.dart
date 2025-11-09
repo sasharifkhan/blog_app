@@ -5,17 +5,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class Textinputbox extends StatelessWidget {
   final String hinttext;
   final TextEditingController getinputtext;
+  final Icon? prefixicon;
   const Textinputbox({
     super.key,
     required this.hinttext,
-    required this.getinputtext,
+    required this.getinputtext, this.prefixicon,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(color: Appconstants.titlecolor),
+      style: TextStyle(color: Appconstants.titlecolor,fontSize: 16.sp),
       decoration: InputDecoration(
+        prefixIcon: prefixicon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),
           borderSide: BorderSide(width: 0),

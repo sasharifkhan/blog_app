@@ -23,6 +23,7 @@ class _SignupscreenState extends State<Signupscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 72.h,
         iconTheme: IconThemeData(color: Appconstants.titlecolor),
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,
@@ -57,7 +58,7 @@ Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Spacinghelper.h10,
           Textinputbox(hinttext: "Confirm  your password",getinputtext: confirmpassword,),
           Spacinghelper.h30,
-          Commonbutton(buttoname: "Register", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen(),));})
+          Commonbutton(color: Appconstants.commonbuttoncolor, buttoname: "Register", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen(),));})
         ],)
         ],),
       )),

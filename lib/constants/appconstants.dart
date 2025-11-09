@@ -5,6 +5,7 @@ class Appconstants {
   static const subtitlecolor = Color(0xFF9EA6BA);
 
   static const commonbuttoncolor = Color(0xFFE36527);
+  static const iconbgcolor = Color(0xFF292E38);
   static const buttontextcolor = Color(0xFFFFFFFF);
 
   static const backgroundcolor = Color(0xFF121217);
