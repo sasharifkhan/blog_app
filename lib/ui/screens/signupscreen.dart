@@ -24,7 +24,7 @@ class _SignupscreenState extends State<Signupscreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 72.h,
-        iconTheme: IconThemeData(color: Appconstants.titlecolor),
+        iconTheme: IconThemeData(color: Appconstants.titlecolor,size: 24.dg),
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,
         title: Text(
@@ -57,7 +57,7 @@ Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text("Confirm Password",style: TextStyle(color: Appconstants.titlecolor,fontSize: 16.sp),),
           Spacinghelper.h10,
           Textinputbox(hinttext: "Confirm  your password",getinputtext: confirmpassword,),
-          Spacinghelper.h30,
+          Spacinghelper.h60,
           Commonbutton(color: Appconstants.commonbuttoncolor, buttoname: "Register", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen(),));})
         ],)
         ],),

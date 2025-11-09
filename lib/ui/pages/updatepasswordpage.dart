@@ -24,7 +24,7 @@ class _UpdatepasswordpageState extends State<Updatepasswordpage> {
         toolbarHeight: 72.h,
         centerTitle: true,
         backgroundColor: Appconstants.backgroundcolor,
-        iconTheme: IconThemeData(color: Appconstants.titlecolor),
+        iconTheme: IconThemeData(color: Appconstants.titlecolor,size: 24.dg),
         title: Text(
           "Update Password",
           style: TextStyle(fontSize: 18.sp, color: Appconstants.titlecolor),

@@ -1,4 +1,5 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/ui/pages/blogdetails.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +26,7 @@ class BlogPage extends StatelessWidget {
         itemCount: 5,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) => InkWell(onTap: () {
-          
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Blogdetails(),));
         },
           child: Container(
             width: double.infinity,

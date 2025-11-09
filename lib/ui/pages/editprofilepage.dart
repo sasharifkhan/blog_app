@@ -22,7 +22,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 72.h,
-        iconTheme: IconThemeData(color: Appconstants.titlecolor),
+        iconTheme: IconThemeData(color: Appconstants.titlecolor,size: 24.dg),
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,
         title: Text(
