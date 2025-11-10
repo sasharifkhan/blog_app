@@ -8,6 +8,7 @@ class Login {
     var response = await http.post(Uri.parse("${Apidetails.baseurl}"));
     if (response.statusCode == 200 || response.statusCode == 201){
       final jsondata = jsonDecode(response.body);
+      print(jsondata);
       
     }
   }
