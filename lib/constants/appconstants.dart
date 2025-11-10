@@ -10,6 +10,7 @@ class Appconstants {
 
   static const backgroundcolor = Color(0xFF121217);
   static const bottomnavbarcolor = Color(0xFF292E38);
+  static const loadercolor = Colors.white;
 
 
 }

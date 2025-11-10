@@ -52,7 +52,7 @@ class _SigninscreenState extends State<Signinscreen> {
                 ),
               ),
               Spacinghelper.h20,
-              Textinputbox(hinttext: "Email or username", getinputtext: email),
+              Textinputbox(hinttext: "Email", getinputtext: email),
               Spacinghelper.h24,
               Textinputbox(hinttext: "Password", getinputtext: password),
               Spacinghelper.h24,
