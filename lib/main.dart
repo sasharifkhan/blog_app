@@ -1,4 +1,5 @@
 import 'package:blogapp/services/providers/AuthToken.dart';
+import 'package:blogapp/services/providers/allblogs.dart';
 import 'package:blogapp/services/providers/profiledetails.dart';
 import 'package:blogapp/ui/screens/onboardingscreen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => Authtoken()),
         ChangeNotifierProvider(create: (context) => Profiledetails()),
+        ChangeNotifierProvider(create: (context) => Allblogs(),)
       ],
       child: MyApp(),
     ),

@@ -6,7 +6,6 @@ class Authtoken extends ChangeNotifier {
   get token => _token;
   savetoken(String token){
     GetStorage().write("token", token);
-    print(token);
     _token = token;
     notifyListeners();
   }

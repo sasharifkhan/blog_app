@@ -6,6 +6,7 @@ class Apidetails {
   static const String logout = "/auth/logout";
   static const String profile = "/user/profile";
   static const String changepassword = "/user/change-password";
+  static const String posts = "/posts";
   static const headerdefault = {
     "Content-Type": "application/json",
     "Accept": "application/json",

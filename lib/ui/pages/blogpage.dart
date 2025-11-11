@@ -1,11 +1,26 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/services/api%20services/getallblogs.dart';
+import 'package:blogapp/services/providers/allblogs.dart';
 import 'package:blogapp/ui/pages/blogdetails.dart';
+import 'package:blogapp/uihelper/models/blogsmodel.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class BlogPage extends StatelessWidget {
+class BlogPage extends StatefulWidget {
   const BlogPage({super.key});
+
+  @override
+  State<BlogPage> createState() => _BlogPageState();
+}
+
+class _BlogPageState extends State<BlogPage> {
+  @override
+  void initState() {
+    super.initState();
+    Getallblogs().getallblogs(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,69 +36,84 @@ class BlogPage extends StatelessWidget {
         ),
       ),
       backgroundColor: Appconstants.backgroundcolor,
-      body: ListView.separated(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
-        itemCount: 5,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) => InkWell(onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Blogdetails(),));
-        },
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              color: Appconstants.backgroundcolor,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(8.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Technology",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Appconstants.subtitlecolor,
-                          ),
-                        ),
-                        Text(
-                          "The Future of AI in Software Development",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Appconstants.titlecolor,
-                          ),
-                        ),
-                        Text(
-                          "Explore how AI is transforming software development, from code generation to automated testing.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Appconstants.subtitlecolor,
-                          ),
-                        ),
-                      ],
-                    ),
+      body: Consumer<Allblogs>(
+        builder: (_, provider, _) {
+          List<Blogsmodel> allblogs = provider.allblogs;
+          return ListView.separated(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+            itemCount: allblogs.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Blogdetails(id: allblogs[index].id),
                   ),
-                  Spacinghelper.w2,
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image(
-                      image: AssetImage("assets/images/photos/career.png"),
-                      height: 132.w,
-                      width: 130.w,
-                      fit: BoxFit.cover,
-                    ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: Appconstants.backgroundcolor,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              allblogs[index].categories.first,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Appconstants.subtitlecolor,
+                              ),
+                            ),
+                            Text(
+                              allblogs[index].title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Appconstants.titlecolor,
+                              ),
+                            ),
+                            Text(
+                              allblogs[index].excerpt,
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Appconstants.subtitlecolor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacinghelper.w2,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image(
+                          image: AssetImage("assets/images/photos/career.png"),
+                          height: 132.w,
+                          width: 130.w,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(height: 20.h, color: Appconstants.backgroundcolor);
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(height: 20.h, color: Appconstants.backgroundcolor);
+            },
+          );
         },
       ),
     );

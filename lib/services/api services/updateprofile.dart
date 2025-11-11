@@ -14,7 +14,6 @@ class Updateprofile {
     String name,
     String phone,
   ) async {
-
     String token = Provider.of<Authtoken>(listen: false, context).token;
 
     if (name.isNotEmpty && phone.isEmpty) {
