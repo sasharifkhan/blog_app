@@ -1,4 +1,6 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/services/api%20services/updatepassword.dart';
+import 'package:blogapp/ui/screens/homescreen.dart';
 import 'package:blogapp/uihelper/common%20widgets/commonbutton.dart';
 import 'package:blogapp/uihelper/common%20widgets/textinputbox.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
@@ -16,6 +18,8 @@ class _UpdatepasswordpageState extends State<Updatepasswordpage> {
   final currentpassword = TextEditingController();
   final newpassword = TextEditingController();
   final confirmpassword = TextEditingController();
+  bool isLoading = false;
+  String errormessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class _UpdatepasswordpageState extends State<Updatepasswordpage> {
         toolbarHeight: 72.h,
         centerTitle: true,
         backgroundColor: Appconstants.backgroundcolor,
-        iconTheme: IconThemeData(color: Appconstants.titlecolor,size: 24.dg),
+        iconTheme: IconThemeData(color: Appconstants.titlecolor, size: 24.dg),
         title: Text(
           "Update Password",
           style: TextStyle(fontSize: 18.sp, color: Appconstants.titlecolor),
@@ -33,43 +37,133 @@ class _UpdatepasswordpageState extends State<Updatepasswordpage> {
       backgroundColor: Appconstants.backgroundcolor,
       body: Padding(
         padding: EdgeInsets.all(10.dg),
-        child: ListView(
+        child: Stack(
           children: [
-            Text(
-              "Current Password",
-              style: TextStyle(color: Appconstants.titlecolor, fontSize: 16),
+            ListView(
+              children: [
+                Text(
+                  "Current Password",
+                  style: TextStyle(
+                    color: Appconstants.titlecolor,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                Spacinghelper.h10,
+                Textinputbox(
+                  ontap: () {
+                    setState(() {
+                      errormessage = "";
+                    });
+                  },
+                  getinputtext: currentpassword,
+                  hinttext: "Enter  your current password",
+                ),
+                Spacinghelper.h20,
+                Text(
+                  "New Password",
+                  style: TextStyle(
+                    color: Appconstants.titlecolor,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                Spacinghelper.h10,
+                Textinputbox(
+                  ontap: () {
+                    setState(() {
+                      errormessage = "";
+                    });
+                  },
+                  getinputtext: newpassword,
+                  hinttext: "Enter  your new password",
+                ),
+                Spacinghelper.h20,
+                Text(
+                  "Confirm New Password",
+                  style: TextStyle(
+                    color: Appconstants.titlecolor,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                Spacinghelper.h10,
+                Textinputbox(
+                  ontap: () {
+                    setState(() {
+                      errormessage = "";
+                    });
+                  },
+                  getinputtext: confirmpassword,
+                  hinttext: "Confirm  your new password",
+                ),
+                Spacinghelper.h5,
+                Text(
+                  errormessage,
+                  style: TextStyle(
+                    color: errormessage == "Password changed successfully"
+                        ? Appconstants.succescolor
+                        : Appconstants.failedcolor,
+                    fontSize: 16.sp,
+                  ),
+                ),
+                Spacinghelper.h250,
+                Commonbutton(
+                  buttoname: "Update Password",
+                  callback: () async {
+                    if (currentpassword.text.isNotEmpty &&
+                        newpassword.text.isNotEmpty &&
+                        confirmpassword.text.isNotEmpty) {
+                      if (newpassword.text != confirmpassword.text) {
+                        setState(() {
+                          errormessage = "Password Doesn't Match";
+                        });
+                      } else {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        String message = await Updatepassword().updatepassword(
+                          context,
+                          currentpassword.text,
+                          newpassword.text,
+                        );
+                        if (message == "Password changed successfully") {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Homescreen(),
+                            ),
+                          );
+                        }
+                        setState(() {
+                          errormessage = message;
+                          isLoading = false;
+                        });
+                      }
+                    } else if (currentpassword.text.isEmpty) {
+                      setState(() {
+                        errormessage = "Current password is required";
+                      });
+                    } else if (newpassword.text.isEmpty) {
+                      setState(() {
+                        errormessage = "New password is required";
+                      });
+                    } else if (confirmpassword.text.isEmpty) {
+                      setState(() {
+                        errormessage = "Confirm password is required";
+                      });
+                    }
+                  },
+                  color: Appconstants.commonbuttoncolor,
+                ),
+              ],
             ),
-            Spacinghelper.h10,
-            Textinputbox(
-              getinputtext: currentpassword,
-              hinttext: "Enter  your current password",
-            ),
-            Spacinghelper.h20,
-            Text(
-              "New Password",
-              style: TextStyle(color: Appconstants.titlecolor, fontSize: 16),
-            ),
-            Spacinghelper.h10,
-            Textinputbox(
-              getinputtext: currentpassword,
-              hinttext: "Enter  your new password",
-            ),
-            Spacinghelper.h20,
-            Text(
-              "Confirm New Password",
-              style: TextStyle(color: Appconstants.titlecolor, fontSize: 16),
-            ),
-            Spacinghelper.h10,
-            Textinputbox(
-              getinputtext: currentpassword,
-              hinttext: "Confirm  your new password",
-            ),
-            Spacinghelper.h360,
-            Commonbutton(
-              buttoname: "Update Password",
-              callback: () {},
-              color: Appconstants.commonbuttoncolor,
-            ),
+            if (isLoading == true)
+              Container(
+                color: Appconstants.backgroundcolor,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Appconstants.loadercolor,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

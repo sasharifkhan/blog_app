@@ -1,12 +1,23 @@
+import 'package:blogapp/services/providers/AuthToken.dart';
+import 'package:blogapp/services/providers/profiledetails.dart';
 import 'package:blogapp/ui/screens/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized;
   GetStorage.init();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Authtoken()),
+        ChangeNotifierProvider(create: (context) => Profiledetails()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

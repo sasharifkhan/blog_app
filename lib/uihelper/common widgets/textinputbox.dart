@@ -7,17 +7,19 @@ class Textinputbox extends StatelessWidget {
   final TextEditingController getinputtext;
   final Icon? prefixicon;
   final int? maxline;
+  final VoidCallback? ontap;
   const Textinputbox({
     super.key,
     this.hinttext,
     required this.getinputtext,
     this.prefixicon,
-    this.maxline,
+    this.maxline, this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: ontap,
       maxLines: maxline,
       style: TextStyle(color: Appconstants.titlecolor, fontSize: 16.sp),
       decoration: InputDecoration(

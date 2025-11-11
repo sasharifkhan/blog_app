@@ -1,9 +1,12 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/services/api%20services/updateprofile.dart';
+import 'package:blogapp/services/providers/profiledetails.dart';
 import 'package:blogapp/uihelper/common%20widgets/commonbutton.dart';
 import 'package:blogapp/uihelper/common%20widgets/textinputbox.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class Editprofilepage extends StatefulWidget {
   const Editprofilepage({super.key});
@@ -14,7 +17,7 @@ class Editprofilepage extends StatefulWidget {
 
 class _EditprofilepageState extends State<Editprofilepage> {
   final displayname = TextEditingController();
-  final email = TextEditingController();
+  final phone = TextEditingController();
   final bio = TextEditingController();
 
   @override
@@ -22,7 +25,7 @@ class _EditprofilepageState extends State<Editprofilepage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 72.h,
-        iconTheme: IconThemeData(color: Appconstants.titlecolor,size: 24.dg),
+        iconTheme: IconThemeData(color: Appconstants.titlecolor, size: 24.dg),
         backgroundColor: Appconstants.backgroundcolor,
         centerTitle: true,
         title: Text(
@@ -34,41 +37,46 @@ class _EditprofilepageState extends State<Editprofilepage> {
       body: ListView(
         children: [
           Center(
-            child: Card(
-              color: Appconstants.backgroundcolor,
-              child: SizedBox(
-                height: 228.dg,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(64.r),
-                      child: Image(
-                        image: AssetImage(
-                          "assets/images/icons/profileicon.png",
+            child: Consumer<Profiledetails>(
+              builder: (_, provider, _) {
+                Map<String, dynamic> profiledetails = provider.profiledetails;
+                return Card(
+                  color: Appconstants.backgroundcolor,
+                  child: SizedBox(
+                    height: 228.dg,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(64.r),
+                          child: Image(
+                            image: AssetImage(
+                              "assets/images/icons/profileicon.png",
+                            ),
+                            height: 128.h,
+                            width: 128.h,
+                          ),
                         ),
-                        height: 128.h,
-                        width: 128.h,
-                      ),
+                        Text(
+                          profiledetails['name'],
+                          style: TextStyle(
+                            color: Appconstants.titlecolor,
+                            fontSize: 22.sp,
+                          ),
+                        ),
+                        Text(
+                          profiledetails['email'],
+                          style: TextStyle(
+                            color: Appconstants.subtitlecolor,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Ethan Carter",
-                      style: TextStyle(
-                        color: Appconstants.titlecolor,
-                        fontSize: 22.sp,
-                      ),
-                    ),
-                    Text(
-                      "@sophiacarter",
-                      style: TextStyle(
-                        color: Appconstants.subtitlecolor,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ),
           Padding(
@@ -87,14 +95,14 @@ class _EditprofilepageState extends State<Editprofilepage> {
                 Textinputbox(getinputtext: displayname),
                 Spacinghelper.h10,
                 Text(
-                  "Email",
+                  "Phone",
                   style: TextStyle(
                     color: Appconstants.titlecolor,
                     fontSize: 16.sp,
                   ),
                 ),
                 SizedBox(height: 10.h),
-                Textinputbox(getinputtext: displayname),
+                Textinputbox(getinputtext: phone),
                 Spacinghelper.h10,
                 Text(
                   "Bio",
@@ -108,7 +116,9 @@ class _EditprofilepageState extends State<Editprofilepage> {
                 Spacinghelper.h50,
                 Commonbutton(
                   buttoname: "Save Changes",
-                  callback: () {},
+                  callback: () {
+                    Updateprofile().updateprofile(context, displayname.text, phone.text);
+                  },
                   color: Appconstants.commonbuttoncolor,
                 ),
               ],

@@ -1,13 +1,29 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/services/api%20services/getuserprofile.dart';
+import 'package:blogapp/services/api%20services/logout.dart';
+import 'package:blogapp/services/providers/profiledetails.dart';
 import 'package:blogapp/ui/pages/editprofilepage.dart';
 import 'package:blogapp/ui/pages/updatepasswordpage.dart';
+import 'package:blogapp/ui/screens/signinscreen.dart';
 import 'package:blogapp/uihelper/common%20widgets/commonbutton.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class Profilepage extends StatelessWidget {
+class Profilepage extends StatefulWidget {
   const Profilepage({super.key});
+
+  @override
+  State<Profilepage> createState() => _ProfilepageState();
+}
+
+class _ProfilepageState extends State<Profilepage> {
+  @override
+  void initState() {
+    super.initState();
+    Getuserprofile().getuserprofile(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,48 +52,53 @@ class Profilepage extends StatelessWidget {
         child: ListView(
           children: [
             Center(
-              child: Card(
-                color: Appconstants.backgroundcolor,
-                child: SizedBox(
-                  height: 252.dg,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(64.r),
-                        child: Image(
-                          image: AssetImage(
-                            "assets/images/icons/profileicon.png",
+              child: Consumer<Profiledetails>(
+                builder: (_, provider, _) {
+                  Map<String, dynamic> profiledetails = provider.profiledetails;
+                  return Card(
+                    color: Appconstants.backgroundcolor,
+                    child: SizedBox(
+                      height: 252.dg,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(64.r),
+                            child: Image(
+                              image: AssetImage(
+                                "assets/images/icons/profileicon.png",
+                              ),
+                              height: 128.h,
+                              width: 128.h,
+                            ),
                           ),
-                          height: 128.h,
-                          width: 128.h,
-                        ),
+                          Text(
+                            profiledetails['name'],
+                            style: TextStyle(
+                              color: Appconstants.titlecolor,
+                              fontSize: 22.sp,
+                            ),
+                          ),
+                          Text(
+                            profiledetails['email'],
+                            style: TextStyle(
+                              color: Appconstants.subtitlecolor,
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          Text(
+                            "Software Engineer",
+                            style: TextStyle(
+                              color: Appconstants.subtitlecolor,
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Ethan Carter",
-                        style: TextStyle(
-                          color: Appconstants.titlecolor,
-                          fontSize: 22.sp,
-                        ),
-                      ),
-                      Text(
-                        "ethan.carter@email.com",
-                        style: TextStyle(
-                          color: Appconstants.subtitlecolor,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                      Text(
-                        "Software Engineer",
-                        style: TextStyle(
-                          color: Appconstants.subtitlecolor,
-                          fontSize: 16.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
             ),
             Spacinghelper.h10,
@@ -92,8 +113,18 @@ class Profilepage extends StatelessWidget {
                   width: 40.w,
                   child: Center(
                     child: IconButton(
-                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Editprofilepage(),));},
-                      icon: Icon(Icons.mode_edit_outline_outlined, color: Appconstants.titlecolor),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Editprofilepage(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.mode_edit_outline_outlined,
+                        color: Appconstants.titlecolor,
+                      ),
                     ),
                   ),
                 ),
@@ -119,8 +150,18 @@ class Profilepage extends StatelessWidget {
                   width: 40.w,
                   child: Center(
                     child: IconButton(
-                      onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Updatepasswordpage(),));},
-                      icon: Icon(Icons.mode_edit_outline_outlined, color: Appconstants.titlecolor),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Updatepasswordpage(),
+                          ),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.mode_edit_outline_outlined,
+                        color: Appconstants.titlecolor,
+                      ),
                     ),
                   ),
                 ),
@@ -135,7 +176,17 @@ class Profilepage extends StatelessWidget {
               ],
             ),
             Spacinghelper.h60,
-            Commonbutton(buttoname: "Logout", callback: (){}, color: Appconstants.iconbgcolor)
+            Commonbutton(
+              buttoname: "Logout",
+              callback: () async {
+                await Logout().logout(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Signinscreen()),
+                );
+              },
+              color: Appconstants.iconbgcolor,
+            ),
           ],
         ),
       ),
