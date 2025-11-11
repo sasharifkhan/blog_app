@@ -20,16 +20,12 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentpageIndex,
-        children: [
-          BlogPage(),
-          Bookmarkspage(),
-          Profilepage(),
-        ],
+        children: [BlogPage(), Bookmarkspage(), Profilepage()],
       ),
 
       backgroundColor: Appconstants.backgroundcolor,
       bottomNavigationBar: SizedBox(
-        height: 95.h,
+        height: 100.h,
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: Appconstants.subtitlecolor,
@@ -43,15 +39,16 @@ class _HomescreenState extends State<Homescreen> {
           },
           items: [
             BottomNavigationBarItem(
-              label: "Blog", 
-              icon: Icon(Icons.home,size: 24.dg,)),
+              label: "Blog",
+              icon: Icon(Icons.home, size: 24.dg),
+            ),
             BottomNavigationBarItem(
               label: "Bookmarks",
-              icon: Icon(Icons.bookmarks_outlined,size: 24.dg),
+              icon: Icon(Icons.bookmarks_outlined, size: 24.dg),
             ),
             BottomNavigationBarItem(
               label: "Profile",
-              icon: Icon(Icons.person_outline_sharp,size: 24.dg),
+              icon: Icon(Icons.person_outline_sharp, size: 24.dg),
             ),
           ],
         ),

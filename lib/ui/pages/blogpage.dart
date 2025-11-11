@@ -39,6 +39,17 @@ class _BlogPageState extends State<BlogPage> {
       body: Consumer<Allblogs>(
         builder: (_, provider, _) {
           List<Blogsmodel> allblogs = provider.allblogs;
+          if (allblogs.isEmpty) {
+            return Container(
+              color: Appconstants.backgroundcolor,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Appconstants.loadercolor,
+                ),
+              ),
+            );
+          }
+
           return ListView.separated(
             padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
             itemCount: allblogs.length,

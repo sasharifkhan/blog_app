@@ -11,5 +11,5 @@ class Appconstants {
   static const loadercolor = Colors.white;
   static const succescolor = Colors.green;
   static const failedcolor = Colors.red;
-
+  static const placeholdercolor = Colors.grey;
 }

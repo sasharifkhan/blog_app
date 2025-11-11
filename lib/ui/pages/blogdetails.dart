@@ -32,11 +32,22 @@ class _BlogdetailsState extends State<Blogdetails> {
         ],
       ),
       backgroundColor: Appconstants.backgroundcolor,
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: Getsingleblog().getsingleblog(context, widget.id),
-          builder: (context, snapshot) {
-            return Column(
+      body: FutureBuilder(
+        future: Getsingleblog().getsingleblog(context, widget.id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              color: Appconstants.backgroundcolor,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Appconstants.loadercolor,
+                ),
+              ),
+            );
+          }
+
+          return SingleChildScrollView(
+            child: Column(
               children: [
                 Image(
                   image: AssetImage("assets/images/banner/blogdetails.png"),
@@ -51,7 +62,7 @@ class _BlogdetailsState extends State<Blogdetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        snapshot.data![0].title,
+                        snapshot.data!.title,
                         // "The Future of Sustainable Living",
                         style: TextStyle(
                           color: Appconstants.titlecolor,
@@ -62,13 +73,13 @@ class _BlogdetailsState extends State<Blogdetails> {
                       Row(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(28.r),
+                            borderRadius: BorderRadius.circular(40.r),
                             child: Image(
-                              image: AssetImage(
-                                "assets/images/icons/profileicon.png",
+                              image: NetworkImage(
+                                snapshot.data!.author.avatar.toString(),
                               ),
                               height: 56.h,
-                              width: 56.w,
+                              width: 56.h,
                             ),
                           ),
                           Spacinghelper.w10,
@@ -83,7 +94,7 @@ class _BlogdetailsState extends State<Blogdetails> {
                                 ),
                               ),
                               Text(
-                                "Olivia Harper",
+                                snapshot.data!.author.name,
                                 style: TextStyle(
                                   color: Appconstants.subtitlecolor,
                                   fontSize: 14.sp,
@@ -95,7 +106,8 @@ class _BlogdetailsState extends State<Blogdetails> {
                       ),
                       Spacinghelper.h10,
                       Text(
-                        "In a world increasingly aware of its environmental footprint, the concept of sustainable living has moved from a niche lifestyle to a mainstream necessity. This article explores the innovative approaches and technologies that are shaping a greener future, from renewable energy solutions to eco-friendly consumer products.",
+                        snapshot.data!.content,
+                        // "In a world increasingly aware of its environmental footprint, the concept of sustainable living has moved from a niche lifestyle to a mainstream necessity. This article explores the innovative approaches and technologies that are shaping a greener future, from renewable energy solutions to eco-friendly consumer products.",
                         style: TextStyle(
                           color: Appconstants.titlecolor,
                           fontSize: 16.sp,
@@ -239,9 +251,9 @@ class _BlogdetailsState extends State<Blogdetails> {
                   ),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
