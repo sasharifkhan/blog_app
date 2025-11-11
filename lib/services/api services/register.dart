@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:blogapp/constants/apidetails.dart';
 import 'package:blogapp/services/providers/AuthToken.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
