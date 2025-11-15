@@ -1,5 +1,4 @@
 import 'package:blogapp/constants/appconstants.dart';
-import 'package:blogapp/services/providers/allblogs.dart';
 import 'package:blogapp/services/providers/bookmarks.dart';
 import 'package:blogapp/ui/pages/blogdetails.dart';
 import 'package:blogapp/uihelper/common%20widgets/textinputbox.dart';
