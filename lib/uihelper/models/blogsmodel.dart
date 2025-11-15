@@ -3,13 +3,13 @@ class Blogsmodel {
     final String title;
     final String excerpt;
     final String content;
-    final dynamic featuredImage;
+    final String featuredImage;
     final Author author;
     final List<String> categories;
     final int readTime;
     final DateTime createdAt;
     final DateTime updatedAt;
-    final int likeCount;
+    final dynamic likeCount;
     final String commentCount;
     final bool isLiked;
     final bool isBookmarked;
@@ -48,6 +48,22 @@ class Blogsmodel {
         isBookmarked: json["is_bookmarked"],
     );
 
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "excerpt": excerpt,
+        "content": content,
+        "featured_image": featuredImage,
+        "author": author.toJson(),
+        "categories": List<dynamic>.from(categories.map((x) => x)),
+        "read_time": readTime,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "like_count": likeCount,
+        "comment_count": commentCount,
+        "is_liked": isLiked,
+        "is_bookmarked": isBookmarked,
+    };
 }
 
 class Author {
@@ -67,4 +83,9 @@ class Author {
         avatar: json["avatar"],
     );
 
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "avatar": avatar,
+    };
 }

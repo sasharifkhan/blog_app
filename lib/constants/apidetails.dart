@@ -7,6 +7,8 @@ class Apidetails {
   static const String profile = "/user/profile";
   static const String changepassword = "/user/change-password";
   static const String posts = "/posts";
+  static const String comments = "/comments/post";
+  static const String addcomment = "/comments";
   static const headerdefault = {
     "Content-Type": "application/json",
     "Accept": "application/json",

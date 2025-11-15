@@ -19,6 +19,7 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -47,148 +48,168 @@ class _ProfilepageState extends State<Profilepage> {
         centerTitle: true,
       ),
       backgroundColor: Appconstants.backgroundcolor,
-      body: Padding(
-        padding: EdgeInsets.all(10.dg),
-        child: ListView(
-          children: [
-            Center(
-              child: Consumer<Profiledetails>(
-                builder: (_, provider, _) {
-                  Map<String, dynamic> profiledetails = provider.profiledetails;
-                  return Card(
-                    color: Appconstants.backgroundcolor,
-                    child: SizedBox(
-                      height: 252.dg,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(64.r),
-                            child: Image(
-                              image: AssetImage(
-                                "assets/images/icons/profileicon.png",
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10.dg),
+            child: ListView(
+              children: [
+                Center(
+                  child: Consumer<Profiledetails>(
+                    builder: (_, provider, _) {
+                      Map<String, dynamic> profiledetails =
+                          provider.profiledetails;
+                      return Card(
+                        color: Appconstants.backgroundcolor,
+                        child: SizedBox(
+                          height: 252.dg,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(64.r),
+                                child: Image(
+                                  image: AssetImage(
+                                    "assets/images/icons/profileicon.png",
+                                  ),
+                                  height: 128.h,
+                                  width: 128.h,
+                                ),
                               ),
-                              height: 128.h,
-                              width: 128.h,
-                            ),
+                              Text(
+                                profiledetails['name'],
+                                style: TextStyle(
+                                  color: Appconstants.titlecolor,
+                                  fontSize: 22.sp,
+                                ),
+                              ),
+                              Text(
+                                profiledetails['email'],
+                                style: TextStyle(
+                                  color: Appconstants.subtitlecolor,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              Text(
+                                "Software Engineer",
+                                style: TextStyle(
+                                  color: Appconstants.subtitlecolor,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            profiledetails['name'],
-                            style: TextStyle(
-                              color: Appconstants.titlecolor,
-                              fontSize: 22.sp,
-                            ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Spacinghelper.h10,
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Appconstants.iconbgcolor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40.w,
+                      width: 40.w,
+                      child: Center(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Editprofilepage(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.mode_edit_outline_outlined,
+                            color: Appconstants.titlecolor,
                           ),
-                          Text(
-                            profiledetails['email'],
-                            style: TextStyle(
-                              color: Appconstants.subtitlecolor,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                          Text(
-                            "Software Engineer",
-                            style: TextStyle(
-                              color: Appconstants.subtitlecolor,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  );
-                },
+                    Spacinghelper.w10,
+                    Text(
+                      "Edit Profile",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Appconstants.titlecolor,
+                      ),
+                    ),
+                  ],
+                ),
+                Spacinghelper.h10,
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Appconstants.iconbgcolor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40.w,
+                      width: 40.w,
+                      child: Center(
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Updatepasswordpage(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.mode_edit_outline_outlined,
+                            color: Appconstants.titlecolor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacinghelper.w10,
+                    Text(
+                      "Update Password",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Appconstants.titlecolor,
+                      ),
+                    ),
+                  ],
+                ),
+                Spacinghelper.h60,
+                Commonbutton(
+                  buttoname: "Logout",
+                  callback: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await Logout().logout(context);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Signinscreen()),(route) => false,
+                    );
+                  },
+                  color: Appconstants.iconbgcolor,
+                ),
+              ],
+            ),
+          ),
+          if (isLoading == true)
+            Container(
+              color: Appconstants.backgroundcolor,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: Appconstants.loadercolor,
+                ),
               ),
             ),
-            Spacinghelper.h10,
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Appconstants.iconbgcolor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  height: 40.w,
-                  width: 40.w,
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Editprofilepage(),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.mode_edit_outline_outlined,
-                        color: Appconstants.titlecolor,
-                      ),
-                    ),
-                  ),
-                ),
-                Spacinghelper.w10,
-                Text(
-                  "Edit Profile",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Appconstants.titlecolor,
-                  ),
-                ),
-              ],
-            ),
-            Spacinghelper.h10,
-            Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Appconstants.iconbgcolor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  height: 40.w,
-                  width: 40.w,
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Updatepasswordpage(),
-                          ),
-                        );
-                      },
-                      icon: Icon(
-                        Icons.mode_edit_outline_outlined,
-                        color: Appconstants.titlecolor,
-                      ),
-                    ),
-                  ),
-                ),
-                Spacinghelper.w10,
-                Text(
-                  "Update Password",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Appconstants.titlecolor,
-                  ),
-                ),
-              ],
-            ),
-            Spacinghelper.h60,
-            Commonbutton(
-              buttoname: "Logout",
-              callback: () async {
-                await Logout().logout(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Signinscreen()),
-                );
-              },
-              color: Appconstants.iconbgcolor,
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }

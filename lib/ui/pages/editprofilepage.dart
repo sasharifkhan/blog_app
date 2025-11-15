@@ -36,132 +36,137 @@ class _EditprofilepageState extends State<Editprofilepage> {
         ),
       ),
       backgroundColor: Appconstants.backgroundcolor,
-      body: Stack(
-        children: [
-          ListView(
-            children: [
-              Center(
-                child: Consumer<Profiledetails>(
-                  builder: (_, provider, _) {
-                    Map<String, dynamic> profiledetails =
-                        provider.profiledetails;
-                    return Card(
-                      color: Appconstants.backgroundcolor,
-                      child: SizedBox(
-                        height: 228.dg,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(64.r),
-                              child: Image(
-                                image: AssetImage(
-                                  "assets/images/icons/profileicon.png",
+      body: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Stack(
+          children: [
+            ListView(
+              children: [
+                Center(
+                  child: Consumer<Profiledetails>(
+                    builder: (_, provider, _) {
+                      Map<String, dynamic> profiledetails =
+                          provider.profiledetails;
+                      return Card(
+                        color: Appconstants.backgroundcolor,
+                        child: SizedBox(
+                          height: 228.dg,
+                          width: double.infinity,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(64.r),
+                                child: Image(
+                                  image: AssetImage(
+                                    "assets/images/icons/profileicon.png",
+                                  ),
+                                  height: 128.h,
+                                  width: 128.h,
                                 ),
-                                height: 128.h,
-                                width: 128.h,
                               ),
-                            ),
-                            Text(
-                              profiledetails['name'],
-                              style: TextStyle(
-                                color: Appconstants.titlecolor,
-                                fontSize: 22.sp,
+                              Text(
+                                profiledetails['name'],
+                                style: TextStyle(
+                                  color: Appconstants.titlecolor,
+                                  fontSize: 22.sp,
+                                ),
                               ),
-                            ),
-                            Text(
-                              profiledetails['email'],
-                              style: TextStyle(
-                                color: Appconstants.subtitlecolor,
-                                fontSize: 16.sp,
+                              Text(
+                                profiledetails['email'],
+                                style: TextStyle(
+                                  color: Appconstants.subtitlecolor,
+                                  fontSize: 16.sp,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.dg),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Display Name",
+                        style: TextStyle(
+                          color: Appconstants.titlecolor,
+                          fontSize: 16.sp,
                         ),
                       ),
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10.dg),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Display Name",
-                      style: TextStyle(
-                        color: Appconstants.titlecolor,
-                        fontSize: 16.sp,
+                      SizedBox(height: 10.h),
+                      Textinputbox(maxline: 1,hinttext: "Full Name", getinputtext: displayname),
+                      Spacinghelper.h10,
+                      Text(
+                        "Phone",
+                        style: TextStyle(
+                          color: Appconstants.titlecolor,
+                          fontSize: 16.sp,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Textinputbox(getinputtext: displayname),
-                    Spacinghelper.h10,
-                    Text(
-                      "Phone",
-                      style: TextStyle(
-                        color: Appconstants.titlecolor,
-                        fontSize: 16.sp,
+                      SizedBox(height: 10.h),
+                      Textinputbox(maxline: 1,hinttext: "+8801XXXXXXXXX", getinputtext: phone),
+                      Spacinghelper.h10,
+                      Text(
+                        "Bio",
+                        style: TextStyle(
+                          color: Appconstants.titlecolor,
+                          fontSize: 16.sp,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Textinputbox(getinputtext: phone),
-                    Spacinghelper.h10,
-                    Text(
-                      "Bio",
-                      style: TextStyle(
-                        color: Appconstants.titlecolor,
-                        fontSize: 16.sp,
+                      SizedBox(height: 10.h),
+                      Textinputbox(getinputtext: bio, hinttext: "Hi, I am a Developer!", maxline: 3),
+                      Spacinghelper.h50,
+                      Commonbutton(
+                        buttoname: "Save Changes",
+                        callback: () async {
+                          if (displayname.text.isEmpty &&
+                              phone.text.isEmpty &&
+                              bio.text.isEmpty) {
+                          } else {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await Updateprofile().updateprofile(
+                              context,
+                              displayname.text,
+                              phone.text,
+                            );
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Homescreen(),
+                              ),
+                            );
+                          }
+                        },
+                        color: Appconstants.commonbuttoncolor,
                       ),
-                    ),
-                    SizedBox(height: 10.h),
-                    Textinputbox(getinputtext: bio, maxline: 5),
-                    Spacinghelper.h50,
-                    Commonbutton(
-                      buttoname: "Save Changes",
-                      callback: () async {
-                        if (displayname.text.isEmpty &&
-                            phone.text.isEmpty &&
-                            bio.text.isEmpty) {
-                        } else {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          await Updateprofile().updateprofile(
-                            context,
-                            displayname.text,
-                            phone.text,
-                          );
-                          setState(() {
-                            isLoading = true;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Homescreen(),
-                            ),
-                          );
-                        }
-                      },
-                      color: Appconstants.commonbuttoncolor,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          if (isLoading == true)
-            Container(
-              color: Appconstants.backgroundcolor,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Appconstants.loadercolor,
-                ),
-              ),
+              ],
             ),
-        ],
+            if (isLoading == true)
+              Container(
+                color: Appconstants.backgroundcolor,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Appconstants.loadercolor,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'package:blogapp/constants/appconstants.dart';
+import 'package:blogapp/services/providers/AuthToken.dart';
 import 'package:blogapp/ui/pages/blogpage.dart';
 import 'package:blogapp/ui/pages/bookmarkspage.dart';
 import 'package:blogapp/ui/pages/profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -14,6 +16,16 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   int currentpageIndex = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    addtokenfromlocal();
+  }
+
+  addtokenfromlocal() async {
+    await Provider.of<Authtoken>(listen: false, context).addtokenfromlocal();
+  }
 
   @override
   Widget build(BuildContext context) {

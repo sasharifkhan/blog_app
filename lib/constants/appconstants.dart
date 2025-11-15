@@ -8,7 +8,8 @@ class Appconstants {
   static const buttontextcolor = Color(0xFFFFFFFF);
   static const backgroundcolor = Color(0xFF121217);
   static const bottomnavbarcolor = Color(0xFF292E38);
-  static const loadercolor = Colors.white;
+  static const loadercolor = Color.fromARGB(255, 87, 86, 90);
+  static const loadercolor2 = Color.fromARGB(255, 87, 82, 90) ;
   static const succescolor = Colors.green;
   static const failedcolor = Colors.red;
   static const placeholdercolor = Colors.grey;

@@ -3,6 +3,7 @@ import 'package:blogapp/services/api%20services/getallblogs.dart';
 import 'package:blogapp/services/providers/allblogs.dart';
 import 'package:blogapp/ui/pages/blogdetails.dart';
 import 'package:blogapp/uihelper/models/blogsmodel.dart';
+import 'package:blogapp/uihelper/skelton%20widgets/skeltonBlogs.dart';
 import 'package:blogapp/uihelper/spacinghelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,13 +41,17 @@ class _BlogPageState extends State<BlogPage> {
         builder: (_, provider, _) {
           List<Blogsmodel> allblogs = provider.allblogs;
           if (allblogs.isEmpty) {
-            return Container(
-              color: Appconstants.backgroundcolor,
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: Appconstants.loadercolor,
-                ),
-              ),
+            return ListView.separated(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+              itemCount: 6,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) => Skeltonblogs(),
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  height: 20.h,
+                  color: Appconstants.backgroundcolor,
+                );
+              },
             );
           }
 
@@ -110,7 +115,7 @@ class _BlogPageState extends State<BlogPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
-                          image: AssetImage("assets/images/photos/career.png"),
+                          image: NetworkImage(allblogs[index].featuredImage),
                           height: 132.w,
                           width: 130.w,
                           fit: BoxFit.cover,

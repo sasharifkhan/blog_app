@@ -3,7 +3,7 @@ class Singleblogmodel {
   final String title;
   final String content;
   final String excerpt;
-  final String? featuredImage;
+  final String featuredImage;
   final Author author;
   final List<String> categories;
   final List<String> tags;
@@ -63,7 +63,7 @@ class Singleblogmodel {
       title: json['title']?.toString() ?? '',
       content: json['content']?.toString() ?? '',
       excerpt: json['excerpt']?.toString() ?? '',
-      featuredImage: json['featured_image']?.toString(),
+      featuredImage: json['featured_image'].toString(),
       author: Author.fromJson(json['author'] ?? {}),
       categories: _toStringList(json['categories']),
       tags: _toStringList(json['tags']),

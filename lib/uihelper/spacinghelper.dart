@@ -14,7 +14,7 @@ class Spacinghelper {
   static  SizedBox h280 = SizedBox(height: 280.dg);
   static  SizedBox h300 = SizedBox(height: 300.dg);
   static  SizedBox h360 = SizedBox(height: 360.dg);
-  static  SizedBox w2 = SizedBox(width: 2.dg);
+  static  SizedBox w2 = SizedBox(width: 10.dg);
   static  SizedBox w10 = SizedBox(width: 10.dg);
   static  SizedBox w20 = SizedBox(width: 20.dg);
 

@@ -31,9 +31,9 @@ class Updateprofile {
         Getuserprofile().getuserprofile(context);
       } else {
         Provider.of<Authtoken>(listen: false, context).deletetoken();
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Signinscreen()),
+          MaterialPageRoute(builder: (context) => Signinscreen()),(route) => false,
         );
       }
     } else if (name.isEmpty && phone.isNotEmpty) {
@@ -51,9 +51,9 @@ class Updateprofile {
         Getuserprofile().getuserprofile(context);
       } else {
         Provider.of<Authtoken>(listen: false, context).deletetoken();
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Signinscreen()),
+          MaterialPageRoute(builder: (context) => Signinscreen()),(route) => false,
         );
       }
     } else {
@@ -71,21 +71,11 @@ class Updateprofile {
         Getuserprofile().getuserprofile(context);
       } else {
         Provider.of<Authtoken>(listen: false, context).deletetoken();
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Signinscreen()),
+          MaterialPageRoute(builder: (context) => Signinscreen()),(route) => false,
         );
       }
     }
-
-    // if (response.statusCode == 200 || response.statusCode == 201) {
-    //   final jsondata = jsonDecode(response.body);
-    // } else {
-    //   Provider.of<Authtoken>(listen: false, context).deletetoken();
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => Signinscreen()),
-    //   );
-    // }
   }
 }

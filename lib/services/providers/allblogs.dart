@@ -9,4 +9,8 @@ class Allblogs extends ChangeNotifier {
     _allblogs = allblogs;
     notifyListeners();
   }
+
+  printablogwithid(int targetId) {
+    print(_allblogs.firstWhere((b) => b.id == targetId));
+  }
 }

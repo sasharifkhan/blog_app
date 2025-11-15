@@ -8,12 +8,17 @@ class Textinputbox extends StatelessWidget {
   final Icon? prefixicon;
   final int? maxline;
   final VoidCallback? ontap;
+  final IconButton? suffixicon;
+  final VoidCallback? suffixiconcall;
   const Textinputbox({
     super.key,
     this.hinttext,
     required this.getinputtext,
     this.prefixicon,
-    this.maxline, this.ontap,
+    this.maxline,
+    this.ontap,
+    this.suffixicon,
+    this.suffixiconcall,
   });
 
   @override
@@ -23,6 +28,7 @@ class Textinputbox extends StatelessWidget {
       maxLines: maxline,
       style: TextStyle(color: Appconstants.titlecolor, fontSize: 16.sp),
       decoration: InputDecoration(
+        suffixIcon: suffixicon,
         prefixIcon: prefixicon,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.r),

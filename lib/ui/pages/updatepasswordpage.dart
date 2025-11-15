@@ -35,136 +35,145 @@ class _UpdatepasswordpageState extends State<Updatepasswordpage> {
         ),
       ),
       backgroundColor: Appconstants.backgroundcolor,
-      body: Padding(
-        padding: EdgeInsets.all(10.dg),
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                Text(
-                  "Current Password",
-                  style: TextStyle(
-                    color: Appconstants.titlecolor,
-                    fontSize: 16.sp,
+      body: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Padding(
+          padding: EdgeInsets.all(10.dg),
+          child: Stack(
+            children: [
+              ListView(
+                children: [
+                  Text(
+                    "Current Password",
+                    style: TextStyle(
+                      color: Appconstants.titlecolor,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                Spacinghelper.h10,
-                Textinputbox(
-                  ontap: () {
-                    setState(() {
-                      errormessage = "";
-                    });
-                  },
-                  getinputtext: currentpassword,
-                  hinttext: "Enter  your current password",
-                ),
-                Spacinghelper.h20,
-                Text(
-                  "New Password",
-                  style: TextStyle(
-                    color: Appconstants.titlecolor,
-                    fontSize: 16.sp,
+                  Spacinghelper.h10,
+                  Textinputbox(
+                    maxline: 1,
+                    ontap: () {
+                      setState(() {
+                        errormessage = "";
+                      });
+                    },
+                    getinputtext: currentpassword,
+                    hinttext: "Enter  your current password",
                   ),
-                ),
-                Spacinghelper.h10,
-                Textinputbox(
-                  ontap: () {
-                    setState(() {
-                      errormessage = "";
-                    });
-                  },
-                  getinputtext: newpassword,
-                  hinttext: "Enter  your new password",
-                ),
-                Spacinghelper.h20,
-                Text(
-                  "Confirm New Password",
-                  style: TextStyle(
-                    color: Appconstants.titlecolor,
-                    fontSize: 16.sp,
+                  Spacinghelper.h20,
+                  Text(
+                    "New Password",
+                    style: TextStyle(
+                      color: Appconstants.titlecolor,
+                      fontSize: 16.sp,
+                    ),
                   ),
-                ),
-                Spacinghelper.h10,
-                Textinputbox(
-                  ontap: () {
-                    setState(() {
-                      errormessage = "";
-                    });
-                  },
-                  getinputtext: confirmpassword,
-                  hinttext: "Confirm  your new password",
-                ),
-                Spacinghelper.h5,
-                Text(
-                  errormessage,
-                  style: TextStyle(
-                    color: errormessage == "Password changed successfully"
-                        ? Appconstants.succescolor
-                        : Appconstants.failedcolor,
-                    fontSize: 16.sp,
+                  Spacinghelper.h10,
+                  Textinputbox(
+                    maxline: 1,
+                    ontap: () {
+                      setState(() {
+                        errormessage = "";
+                      });
+                    },
+                    getinputtext: newpassword,
+                    hinttext: "Enter  your new password",
                   ),
-                ),
-                Spacinghelper.h250,
-                Commonbutton(
-                  buttoname: "Update Password",
-                  callback: () async {
-                    if (currentpassword.text.isNotEmpty &&
-                        newpassword.text.isNotEmpty &&
-                        confirmpassword.text.isNotEmpty) {
-                      if (newpassword.text != confirmpassword.text) {
-                        setState(() {
-                          errormessage = "Password Doesn't Match";
-                        });
-                      } else {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        String message = await Updatepassword().updatepassword(
-                          context,
-                          currentpassword.text,
-                          newpassword.text,
-                        );
-                        if (message == "Password changed successfully") {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Homescreen(),
-                            ),
-                          );
+                  Spacinghelper.h20,
+                  Text(
+                    "Confirm New Password",
+                    style: TextStyle(
+                      color: Appconstants.titlecolor,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  Spacinghelper.h10,
+                  Textinputbox(
+                    maxline: 1,
+                    ontap: () {
+                      setState(() {
+                        errormessage = "";
+                      });
+                    },
+                    getinputtext: confirmpassword,
+                    hinttext: "Confirm  your new password",
+                  ),
+                  Spacinghelper.h5,
+                  Text(
+                    errormessage,
+                    style: TextStyle(
+                      color: errormessage == "Password changed successfully"
+                          ? Appconstants.succescolor
+                          : Appconstants.failedcolor,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  Spacinghelper.h250,
+                  Commonbutton(
+                    buttoname: "Update Password",
+                    callback: () async {
+                      if (currentpassword.text.isNotEmpty &&
+                          newpassword.text.isNotEmpty &&
+                          confirmpassword.text.isNotEmpty) {
+                        if (newpassword.text != confirmpassword.text) {
+                          setState(() {
+                            errormessage = "Password Doesn't Match";
+                          });
+                        } else {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          String message = await Updatepassword()
+                              .updatepassword(
+                                context,
+                                currentpassword.text,
+                                newpassword.text,
+                              );
+                          if (message == "Password changed successfully") {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Homescreen(),
+                              ),
+                            );
+                          }
+                          setState(() {
+                            errormessage = message;
+                            isLoading = false;
+                          });
                         }
+                      } else if (currentpassword.text.isEmpty) {
                         setState(() {
-                          errormessage = message;
-                          isLoading = false;
+                          errormessage = "Current password is required";
+                        });
+                      } else if (newpassword.text.isEmpty) {
+                        setState(() {
+                          errormessage = "New password is required";
+                        });
+                      } else if (confirmpassword.text.isEmpty) {
+                        setState(() {
+                          errormessage = "Confirm password is required";
                         });
                       }
-                    } else if (currentpassword.text.isEmpty) {
-                      setState(() {
-                        errormessage = "Current password is required";
-                      });
-                    } else if (newpassword.text.isEmpty) {
-                      setState(() {
-                        errormessage = "New password is required";
-                      });
-                    } else if (confirmpassword.text.isEmpty) {
-                      setState(() {
-                        errormessage = "Confirm password is required";
-                      });
-                    }
-                  },
-                  color: Appconstants.commonbuttoncolor,
-                ),
-              ],
-            ),
-            if (isLoading == true)
-              Container(
-                color: Appconstants.backgroundcolor,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Appconstants.loadercolor,
+                    },
+                    color: Appconstants.commonbuttoncolor,
+                  ),
+                ],
+              ),
+              if (isLoading == true)
+                Container(
+                  color: Appconstants.backgroundcolor,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Appconstants.loadercolor,
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
